@@ -1,0 +1,42 @@
+# Code written and commented by Rishabh Chouhan for Lab 1
+# rchouhan2@student.gsu.edu
+
+def guess_my_number():
+    while True:
+        try:
+            n = int(input("Enter n: "))  # Prompt the user to enter a positive integer for n.
+            if n > 0:  # TEST CASE: Check if the input is a positive integer.
+                break  # Exit the loop if a valid positive integer is entered.
+            else:
+                print("Enter a positive integer for n.")  # Prompt the user to enter a positive integer.
+        except ValueError:
+            print("Enter a valid integer for n.")  # TEST CASE: Handle invalid integer input.
+
+    print("Welcome to Guess My Number!")
+    print(f"Please think of a number between 0 and {n - 1}.")  # Ask the user to think of a number in the specified range.
+
+    low, high = 0, n - 1  # Initialize the low and high bounds of the guessing range.
+
+    while True:
+        guess = low + (high - low + 1) // 2  # Calculate the midpoint of the current range as the next guess.
+        print(f"Is your number: {guess}?")  # Display the guess to the user.
+
+        while True:
+            response = input(
+                "Please enter C for correct, H for too high, or L for too low.\nEnter your response (H/L/C): ").strip().upper()
+            # Prompt the user to provide feedback on the guess.
+            if response in {'H', 'L', 'C'}:
+                break  # TEST CASE: Exit the inner loop if a valid response is entered.
+            else:
+                print("Enter your response (H/L/C): ", end='')  # TEST CASE: Prompt the user again for a valid response.
+
+        if response == 'C':
+            print("Thank you for playing Guess My Number!")  # Thank the user and end the game if the guess is correct.
+            break
+        elif response == 'H':
+            high = guess - 1  # Adjust the high bound if the guess is too high.
+        elif response == 'L':
+            low = guess + 1  # Adjust the low bound if the guess is too low.
+
+# Call the function to start the game
+guess_my_number()
