@@ -1,0 +1,26 @@
+# Code written and commented by Rishabh Chouhan for Lab 1
+# rchouhan2@student.gsu.edu
+
+def get_name():
+    # Prompt the user to enter their name and strip any leading/trailing whitespace
+    name = input("What is your name? ").strip()
+
+    # Keep prompting the user until a non-empty name is entered
+    while not name:
+        name = input("Please enter your name: ").strip()
+
+    return name
+
+# TEST CASE: The get_name function handles the case when the user enters an empty name by prompting them to enter their name again.
+
+def main():
+    # Call the get_name function to retrieve the user's name
+    name = get_name()
+
+    # Print a greeting message using the retrieved name
+    print(f"Hello, {name}!")
+
+
+if __name__ == "__main__":
+    # Execute the main function if the script is run directly
+    main()
