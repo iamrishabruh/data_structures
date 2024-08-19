@@ -1,0 +1,78 @@
+# Code written and commented by Rishabh Chouhan for Lab 5
+# rchouhan2@student.gsu.edu
+# 7/4/24
+
+from collections import deque
+
+class MaxQueue:
+    def __init__(self):
+        # Main queue to store all elements
+        self.main_queue = deque()
+        # Max queue to store the maximum elements
+        self.max_queue = deque()
+
+    def enqueue(self, value):
+        # Add the new value to the main queue
+        self.main_queue.append(value)
+
+        # Maintain the max_queue
+        # Remove elements from the back of max_queue that are less than the new value
+        while self.max_queue and self.max_queue[-1] < value:
+            self.max_queue.pop()
+        # Add the new value to the back of max_queue
+        self.max_queue.append(value)
+
+    def dequeue(self):
+        if not self.main_queue:
+            raise IndexError("dequeue from an empty queue")
+
+        # Remove the front element from the main queue
+        value = self.main_queue.popleft()
+
+        # If the removed element is the maximum, remove it from the max queue as well
+        if value == self.max_queue[0]:
+            self.max_queue.popleft()
+
+        return value
+
+    def get_max(self):
+        if not self.max_queue:
+            raise IndexError("get_max from an empty queue")
+
+        # The maximum element is at the front of the max queue
+        return self.max_queue[0]
+
+    def __str__(self):
+        return f"Main Queue: {list(self.main_queue)}\nMax Queue: {list(self.max_queue)}"
+
+# Example usage:
+mq = MaxQueue()
+mq.enqueue(1)
+print(mq)  # Main Queue: [1], Max Queue: [1]
+
+mq.enqueue(4)
+print(mq)  # Main Queue: [1, 4], Max Queue: [4]
+
+mq.enqueue(2)
+print(mq)  # Main Queue: [1, 4, 2], Max Queue: [4, 2]
+
+mq.enqueue(3)
+print(mq)  # Main Queue: [1, 4, 2, 3], Max Queue: [4, 3]
+
+print("Max:", mq.get_max())  # Max: 4
+
+mq.dequeue()
+print(mq)  # Main Queue: [4, 2, 3], Max Queue: [4, 3]
+
+print("Max:", mq.get_max())  # Max: 4
+
+mq.dequeue()
+print(mq)  # Main Queue: [2, 3], Max Queue: [3]
+
+print("Max:", mq.get_max())  # Max: 3
+
+# Time and Space Complexity:
+# enqueue(value): O(1)
+# dequeue(): O(1)
+# get_max(): O(1)
+# Space complexity: O(n) where n is the number of elements in the main queue
