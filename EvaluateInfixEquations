@@ -1,0 +1,86 @@
+# Code written and commented by Rishabh Chouhan
+# rchouhan2@student.gsu.edu
+# 7/25/24
+
+from collections import deque
+
+# Helper function to get precedence of operators
+# Determines the precedence of different arithmetic operators
+def precedence(op):
+    if op == '+' or op == '-':
+        return 1  # Addition and subtraction have the lowest precedence
+    if op == '*' or op == '/':
+        return 2  # Multiplication and division have higher precedence
+    return 0
+
+# Helper function to perform arithmetic operations
+# Implements basic arithmetic operations without using built-in methods
+def apply_op(a, b, op):
+    if op == '+':
+        return a + b
+    elif op == '-':
+        return a - b
+    elif op == '*':
+        return a * b
+    elif op == '/':
+        if b == 0:
+            raise ZeroDivisionError("division by zero")  # Handle division by zero
+        return a // b  # Integer division
+    else:
+        raise ValueError(f"Unsupported operator: {op}")
+
+# Function to convert in-fix to post-fix expression
+# Uses the Shunting Yard algorithm to convert in-fix expressions to post-fix notation
+def infix_to_postfix(expression):
+    output = []  # List to store the post-fix expression
+    operators = deque()  # Stack to hold operators and parentheses
+    tokens = expression.split()  # Split the expression by spaces to get tokens
+
+    for token in tokens:
+        if token.isdigit():  # If the token is an operand
+            output.append(int(token))  # Append operands to the output list
+        elif token == '(':  # If the token is an opening parenthesis
+            operators.append(token)  # Push the '(' onto the stack
+        elif token == ')':  # If the token is a closing parenthesis
+            while operators and operators[-1] != '(':
+                output.append(operators.pop())  # Pop operators until '(' is encountered
+            operators.pop()  # Remove '(' from the stack
+        else:  # If the token is an operator
+            while (operators and operators[-1] != '(' and
+                   precedence(operators[-1]) >= precedence(token)):
+                output.append(operators.pop())  # Pop operators with higher or equal precedence
+            operators.append(token)  # Push the current operator onto the stack
+
+    while operators:
+        output.append(operators.pop())  # Pop all remaining operators
+
+    return output
+
+# Function to evaluate post-fix expression
+# Evaluates the post-fix expression using a stack
+def evaluate_postfix(postfix_expression):
+    stack = deque()  # Stack to store operands
+
+    for token in postfix_expression:
+        if isinstance(token, int):  # If the token is an operand
+            stack.append(token)  # Push operand onto the stack
+        else:  # If the token is an operator
+            b = stack.pop()  # Pop the top two operands
+            a = stack.pop()
+            result = apply_op(a, b, token)  # Apply the operator
+            stack.append(result)  # Push the result back onto the stack
+
+    return stack.pop()  # The final result is the only item left in the stack
+
+# Main function to evaluate in-fix expression
+# Converts in-fix expression to post-fix and then evaluates it
+def evaluate_infix_expression(expression):
+    postfix_expression = infix_to_postfix(expression)  # Convert to post-fix notation
+    return evaluate_postfix(postfix_expression)  # Evaluate the post-fix expression
+
+# Example usage
+expression = "10 * 2 - 15"
+print(f"Result of the in-fix expression '{expression}': {evaluate_infix_expression(expression)}")
+
+# Time Complexity: O(n) where n is the number of tokens. Converting to post-fix and evaluating take linear time.
+# Space Complexity: O(n) due to the storage of operators and operands in the stack and output list.
