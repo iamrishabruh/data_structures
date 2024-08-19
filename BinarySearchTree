@@ -1,0 +1,122 @@
+# Code written and commented by Rishabh Chouhan
+# rchouhan2@student.gsu.edu
+# 7/25/24
+
+class Node:
+    # A function to create a new node
+    def __init__(self, key):
+        self.data = key
+        self.left = None
+        self.right = None
+
+def find_min(node):
+
+    # Find the node with the minimum value in a BST.
+
+    current = node
+    while current.left is not None:
+        current = current.left
+    return current
+
+    # Time Complexity: O(h) - traverse the height of the tree to find the min value.
+    # Space Complexity: O(1) - constant space for variables.
+
+def delete_node(root, key):
+
+    # Delete a node with the specified key from the BST while maintaining BST properties.
+
+    # Base case: if the tree is empty
+    if root is None:
+        return root
+
+    # Recursive case: traverse the tree to find the node to be deleted
+    if key < root.data:
+        root.left = delete_node(root.left, key)
+    elif key > root.data:
+        root.right = delete_node(root.right, key)
+    else:
+        # Node to be deleted found
+        if root.left is None:
+            return root.right
+        elif root.right is None:
+            return root.left
+
+        # Node with two children: Get the smallest in the right subtree
+        temp = find_min(root.right)
+
+        # Copy the content to this node
+        root.data = temp.data
+
+        # Delete the successor
+        root.right = delete_node(root.right, temp.data)
+
+    return root
+
+    # Time Complexity: O(h) - traverse the height of the tree to find and delete the node.
+    # Space Complexity: O(h) - recursion stack space proportional to the height of the tree.
+
+def delete_root_node(root):
+
+    # Delete the root node of the BST by using the delete_node function.
+
+    if root is None:
+        return None
+
+    if root.left is None and root.right is None:
+        return None
+
+    # Use the delete_node function to delete the root node
+    return delete_node(root, root.data)
+
+    # Time Complexity: O(h) - deletion involves traversing the height of the tree.
+    # Space Complexity: O(h) - recursion stack space proportional to the height of the tree.
+
+def inorder_traversal(root):
+
+    # Perform an in-order traversal of the BST
+
+    result = []
+    def traverse(node):
+        if node:
+            traverse(node.left)
+            result.append(node.data)
+            traverse(node.right)
+    traverse(root)
+    return result
+
+    # Time Complexity: O(n) - visit every node in the tree.
+    # Space Complexity: O(n) - store all nodes' values for the in-order traversal.
+
+def main():
+
+    # Main function to run test cases and verify the functionality of delete_root_node.
+
+    # Test Case 1: Simple Tree
+    root1 = Node(4)
+    root1.left = Node(2)
+    root1.right = Node(6)
+    root1.left.left = Node(1)
+    root1.left.right = Node(3)
+    root1.right.left = Node(5)
+    root1.right.right = Node(7)
+
+    # Print the results
+    print("Test Case 1")
+    print("In-order traversal before deletion:", inorder_traversal(root1))
+    root1 = delete_root_node(root1)
+    print("In-order traversal after deletion:", inorder_traversal(root1))
+    print()
+
+    # Test Case 2: Single Node Tree
+    root2 = Node(10)
+
+    # Print the results
+    print("Test Case 2")
+    print("In-order traversal before deletion:", inorder_traversal(root2))
+    root2 = delete_root_node(root2)
+    print("In-order traversal after deletion:", inorder_traversal(root2))
+    print()
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
