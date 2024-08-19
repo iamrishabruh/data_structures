@@ -1,0 +1,76 @@
+# Code written and commented by Rishabh Chouhan (for Final Exam)
+# rchouhan2@student.gsu.edu
+# 7/28/24
+
+def remove_duplicates(arr):
+    seen = set()  # A set to keep track of seen elements
+    result = []   # List to store the unique elements
+    for num in arr:
+        if num not in seen:  # Check if the number is not in the seen set
+            seen.add(num)    # Add the number to the seen set
+            result.append(num)  # Append the unique number to the result list
+    return result  # Return the list of unique elements
+
+# Given sorted array
+arr = [1, 2, 3, 4, 4, 6, 6, 6]
+print(remove_duplicates(arr))  # Output: [1, 2, 3, 4, 6]
+
+def evaluate_postfix(expression):
+    stack = []  # Stack to store the operands
+    for token in expression:
+        if token.isdigit():  # If the token is a digit, push it to the stack
+            stack.append(int(token))
+        else:
+            # If the token is an operator, pop two operands from the stack
+            right = stack.pop()
+            left = stack.pop()
+            if token == '+':
+                stack.append(left + right)  # Perform addition
+            elif token == '-':
+                stack.append(left - right)  # Perform subtraction
+            elif token == '*':
+                stack.append(left * right)  # Perform multiplication
+            elif token == '/':
+                stack.append(int(left / right))  # Perform integer division
+    return stack[0]  # The result is the only element left in the stack
+
+# Given post-fix expression
+expression = ["2", "1", "+", "4", "*"]
+print(evaluate_postfix(expression))  # Output: 12
+
+class Node:
+    def __init__(self, key):
+        self.data = key  # Initialize node's value
+        self.left = None  # Initialize left child
+        self.right = None  # Initialize right child
+
+def in_order_traversal(node, count, result):
+    if node is None or len(result) == 1:  # Base case: if node is None or result is found
+        return
+
+    in_order_traversal(node.left, count, result)  # Traverse the left subtree
+
+    count[0] += 1  # Increment count for each visited node
+    if count[0] == 3:  # If the third smallest element is found
+        result.append(node.data)  # Append the third smallest element to result
+        return
+
+    in_order_traversal(node.right, count, result)  # Traverse the right subtree
+
+def find_third_smallest(root):
+    count = [0]  # Initialize count as a list to keep track of the number of visited nodes
+    result = []  # List to store the third smallest element
+    in_order_traversal(root, count, result)  # Perform in-order traversal
+    return result[0] if result else None  # Return the third smallest element if found
+
+# Create the given BST
+root = Node(400)
+root.left = Node(200)
+root.right = Node(600)
+root.left.left = Node(100)
+root.left.right = Node(300)
+root.right.left = Node(500)
+root.right.right = Node(700)
+
+print(find_third_smallest(root))  # Output: 300
+
