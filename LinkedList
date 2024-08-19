@@ -1,0 +1,110 @@
+# Code written and commented by Rishabh Chouhan for Lab 4
+# rchouhan2@student.gsu.edu
+# 6/28/24
+
+class Node:
+    def __init__(self, data):
+        # Initialize a node with data and a pointer to the next node
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        # Initialize an empty linked list with a head pointer
+        self.head = None
+
+    def append(self, data):
+        # Append a new node with the given data to the end of the list
+        if not self.head:
+            # If the list is empty, set the head to the new node
+            self.head = Node(data)
+        else:
+            # Traverse to the end of the list and add the new node
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = Node(data)
+
+    def print_list(self):
+        # Print all elements in the linked list
+        current = self.head
+        while current:
+            # Print the data in each node followed by a space
+            print(current.data, end=" ")
+            current = current.next
+        print()  # Newline for clean output
+
+    def delete_nth_from_end(self, n):
+        # Delete the N-th node from the end of the list
+        if not self.head:
+            # If the list is empty, print a message and return
+            print("The list is empty.")
+            return
+
+        # Create a dummy node that points to the head of the list
+        dummy = Node(0)
+        dummy.next = self.head
+        slow = dummy
+        fast = dummy
+
+        # Move the fast pointer n+1 steps ahead
+        for _ in range(n + 1):
+            if not fast:
+                # If fast becomes None, the list is shorter than n
+                print("The list is shorter than the provided n value.")
+                return
+            fast = fast.next
+
+        # Move both slow and fast pointers until fast reaches the end
+        while fast:
+            slow = slow.next
+            fast = fast.next
+
+        # Delete the N-th node from the end
+        if slow.next:
+            slow.next = slow.next.next
+        else:
+            # If the node to delete does not exist (should not happen with correct n)
+            print("Unable to delete the node as the n value is greater than the length of the list.")
+
+        # Update head in case the first node was removed
+        self.head = dummy.next
+
+# Helper function to test the linked list
+def test_linked_list(elements, n):
+    # Create a linked list and append elements
+    ll = LinkedList()
+    for elem in elements:
+        ll.append(elem)
+
+    # Print the original linked list
+    print("Original linked list:")
+    ll.print_list()
+
+    # Delete the N-th node from the end
+    ll.delete_nth_from_end(n)
+
+    # Print the modified linked list
+    print(f"Linked list after deleting the {n}th node from the end:")
+    ll.print_list()
+
+# Test cases to cover regular cases: head, tail, middle
+print("Test case where N is the head:")
+test_linked_list([50, 11, 33, 21, 40, 71], 6)  # Removing the head (50)
+
+print("Test case where N is the tail:")
+test_linked_list([50, 11, 33, 21, 40, 71], 1)  # Removing the tail (71)
+
+print("Test case where N is in the middle:")
+test_linked_list([50, 11, 33, 21, 40, 71], 3)  # Removing a middle node (21)
+
+# Additional test cases
+print("Test with single element:")
+test_linked_list([50], 1)
+
+print("Test with two elements:")
+test_linked_list([50, 11], 1)
+test_linked_list([50, 11], 2)
+
+print("Test with provided example:")
+test_linked_list([50, 11, 33, 21, 40, 71], 2)
