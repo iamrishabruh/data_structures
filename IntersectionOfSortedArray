@@ -1,0 +1,109 @@
+# Code written and commented by Rishabh Chouhan for Lab 5
+# rchouhan2@student.gsu.edu
+# 7/18/24
+
+def intersection_brute_force(arr1, arr2):
+    # Brute-force method to find the intersection of two sorted arrays.
+    # Time complexity: O(m * n)
+
+    # Initialize an empty list to store the intersection
+    intersection = []
+
+    # Iterate over each element in arr1
+    for num1 in arr1:
+        # Iterate over each element in arr2
+        for num2 in arr2:
+            # If the elements are equal, they are part of the intersection
+            if num1 == num2:
+                # Add the element to the intersection list
+                intersection.append(num1)
+                # Break out of the inner loop to avoid duplicate additions
+                break
+
+    # Return the intersection list after removing duplicates and sorting
+    return sorted(list(set(intersection)))
+
+def intersection_linear(arr1, arr2):
+    # Linear intersection of two sorted arrays.
+    # Time complexity: O(m + n)
+
+    # Initialize an empty list to store the intersection
+    intersection = []
+
+    # Initialize two pointers for arr1 and arr2
+    i, j = 0, 0
+
+    # Continue until reaching the end of either array
+    while i < len(arr1) and j < len(arr2):
+        # If the elements are equal, they are part of the intersection
+        if arr1[i] == arr2[j]:
+            # Add the element to the intersection list
+            intersection.append(arr1[i])
+            # Move both pointers to the next element
+            i += 1
+            j += 1
+        # If the element in arr1 is less than the element in arr2, move the arr1 pointer
+        elif arr1[i] < arr2[j]:
+            i += 1
+        # If the element in arr2 is less than the element in arr1, move the arr2 pointer
+        else:
+            j += 1
+
+    # Return the intersection list after removing duplicates and sorting
+    return sorted(list(set(intersection)))
+
+def binary_search(arr, target):
+    # Binary search implementation to find target in arr.
+
+    # Initialize left and right pointers
+    left, right = 0, len(arr) - 1
+
+    # Continue searching while the left pointer is less than or equal to the right pointer
+    while left <= right:
+        # Calculate the middle index
+        mid = left + (right - left) // 2
+        # If the middle element is equal to the target, return its index
+        if arr[mid] == target:
+            return mid
+        # If the middle element is less than the target, adjust the left pointer
+        elif arr[mid] < target:
+            left = mid + 1
+        # If the middle element is greater than the target, adjust the right pointer
+        else:
+            right = mid - 1
+
+    # If the target is not found, return -1
+    return -1
+
+def intersection_binary_search(arr1, arr2):
+    # Intersection using binary search.
+    # Time complexity: O(nlog(m))
+
+    # Ensure arr1 is the shorter array to optimize search
+    if len(arr1) > len(arr2):
+        arr1, arr2 = arr2, arr1
+
+    # Initialize an empty list to store the intersection
+    intersection = []
+
+    # Iterate over each element in arr1
+    for num in arr1:
+        # If the element is found in arr2 using binary search, add it to the intersection list
+        if binary_search(arr2, num) != -1:
+            intersection.append(num)
+
+    # Return the intersection list after removing duplicates and sorting
+    return sorted(list(set(intersection)))
+
+# Input arrays
+arr1 = [1, 6, 9, 10, 11, 21]
+arr2 = [2, 6, 9, 11, 17, 21]
+
+# Find intersection using each method
+intersection1 = intersection_brute_force(arr1, arr2)
+intersection2 = intersection_binary_search(arr1, arr2)
+intersection3 = intersection_linear(arr1, arr2)
+
+print("Intersection using brute force method:", intersection1)
+print("Intersection using binary search method:", intersection2)
+print("Intersection using linear method:", intersection3)
