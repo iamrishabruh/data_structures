@@ -42,7 +42,7 @@
 
 ## Getting Started
 
-1. To run the code in this repository:
+To run the code in this repository:
 
 ```
 git clone https://github.com/iamrishabruh/CSC2720Labs.git
@@ -51,9 +51,9 @@ git clone https://github.com/iamrishabruh/CSC2720Labs.git
 cd CSC2720Labs
 ```
 
-2. Open the respective lab file in your preferred IDE or text editor to review the implementation.
+Open the respective lab file in your preferred IDE or text editor to review the implementation.
 
-3. Follow the instructions provided in each lab's comments to run or test the code.
+Follow the instructions provided in each lab's comments to run or test the code.
 
 ## Contributions
 
