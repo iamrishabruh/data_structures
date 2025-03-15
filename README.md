@@ -1,59 +1,69 @@
-## CSC2720 Data Structures Labs
+### CSC2720 Data Structures Labs 
+_______________________________________________________________________________________________________________________________________
 
-1. _Binary Search Tree_
+_Binary Search Tree_
 
 - Implementation of a binary search tree with methods for insertion, deletion, and traversal.
+_______________________________________________________________________________________________________________________________________
 
-2. _Evaluate Infix Equations_
+_Evaluate Infix Equations_
 
 - A program to evaluate infix mathematical expressions using stacks.
+_______________________________________________________________________________________________________________________________________
 
-3. _Get Name_
+_Get Name_
 
 - A simple program to demonstrate string manipulation and data retrieval.
+_______________________________________________________________________________________________________________________________________
 
-4. _Guess My Number_
+_Guess My Number_
 
 - An interactive guessing game that challenges users to guess a randomly generated number.
+_______________________________________________________________________________________________________________________________________
 
-5. _Intersection of Sorted Array_
+_Intersection of Sorted Array_
 
 - Algorithm to find the intersection of two sorted arrays.
+_______________________________________________________________________________________________________________________________________
 
-6. _Level Order Binary Tree_
+_Level Order Binary Tree_
 
 - Implementation of a binary tree that supports level order traversal.
+_______________________________________________________________________________________________________________________________________
 
-7. _Linked List_
+_Linked List_
 
 - Implementation of a singly linked list with basic operations such as insertion, deletion, and traversal.
+_______________________________________________________________________________________________________________________________________
 
-8. _Max Queue_
+_Max Queue_
 
 - Implementation of a queue that supports retrieving the maximum element in constant time.
+_______________________________________________________________________________________________________________________________________
 
-9. _Quick Sort (Median of Three)_
+_Quick Sort (Median of Three)_
 
 - Implementation of the quicksort algorithm using the median-of-three method for pivot selection.
+_______________________________________________________________________________________________________________________________________
 
-10. _Sets, Stacks, Trees Final_
+_Sets, Stacks, Trees Final_
 
 - Final lab covering advanced topics in sets, stacks, and trees.
+_______________________________________________________________________________________________________________________________________
 
 ## Getting Started
 
-To run the code in this repository:
+    ```
+    git clone https://github.com/iamrishabruh/CSC2720Labs.git
+    ```
 
-```
-git clone https://github.com/iamrishabruh/CSC2720Labs.git
-```
-```
-cd CSC2720Labs
-```
+    ```
+    cd data_structures
+    ```
 
-Open the respective lab file in your preferred IDE or text editor to review the implementation.
+1. Open the respective lab file in your preferred IDE or text editor to review the implementation.
 
-Follow the instructions provided in each lab's comments to run or test the code.
+2. Follow the instructions provided in each lab's comments to run or test the code.
 
 ## Contributions
 
