@@ -53,13 +53,13 @@ ________________________________________________________________________________
 
 ## Getting Started
 
-    ```
-    git clone https://github.com/iamrishabruh/CSC2720Labs.git
-    ```
+```bash
+git clone https://github.com/iamrishabruh/data_structures.git
+```
 
-    ```
-    cd data_structures
-    ```
+```bash
+cd data_structures
+```
 
 1. Open the respective lab file in your preferred IDE or text editor to review the implementation.
 
